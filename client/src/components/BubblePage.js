@@ -12,7 +12,7 @@ const BubblePage = () => {
   .get("/colors")
   .then((res) => {
     console.log("this is bubble page",res.data);
-    setColorList(...colorList,{
+    setColorList({
       color: [res.data],
     });
   })

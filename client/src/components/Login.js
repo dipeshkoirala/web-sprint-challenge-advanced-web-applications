@@ -1,56 +1,60 @@
-import React ,{useState} from "react";
+import React ,{Component} from "react";
 import {useHistory} from 'react-router-dom'
 
 import {Axios} from "./AxiosCall";
 
-const Login = () => {
+export class Login extends Component {
+  state = {
+    credentials: {
+      username: "",
+      password: "",
+    },
+  };
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route
-  const [state,setState]=useState({
-    credentials:{username:"",password:""}
-  })
-  const {push}=useHistory();
+  
 
-  const handleChange=(e)=>{
-    setState({
+  handleChange=(e)=>{
+    this.setState({
       credentials:{
-        ...state.credentials,[e.target.name]:e.target.value,
+        ...this.state.credentials,[e.target.name]:e.target.value,
 
       }
     })
   }
-  const logIn=(e)=>{
+  logIn=(e)=>{
     e.preventDefault();
     Axios()
-      .post("/login", state.credentials)
+      .post("/login", this.state.credentials)
       .then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.payload);
-        console.log(res.data); 
-       push('/protected')
+        // console.log(res.data); 
+        this.props.history.push('/protected')
       })
       .catch((err) => console.log({ err }));
 
   }
+  render(){
   return (
     <div className="login bg-success">
       <h1>Welcome to the Bubble App!</h1>
       <p>Build a login page here</p>
     
       
-        <form onSubmit={logIn}>
+        <form onSubmit={this.logIn}>
           <input
             type="text"
             name="username"
-            value={state.credentials.username}
-            onChange={handleChange}
+            value={this.state.credentials.username}
+            onChange={this.handleChange}
             placeholder="User Name"
           />
           <input
             type="password"
             name="password"
-            value={state.credentials.password}
-            onChange={handleChange}
+            value={this.state.credentials.password}
+            onChange={this.handleChange}
             placeholder="password"
           />
           <button className="log  bg-info p-2">Log in</button>
@@ -58,6 +62,7 @@ const Login = () => {
     </div>
 
   );
+  }
 };
 
 export default Login;
