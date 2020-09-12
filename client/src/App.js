@@ -6,19 +6,20 @@ import PrivateRoute from './components/PrivateRoute'
 import BubblePage from "./components/BubblePage";
 
 import "./styles.scss";
-// import {Axios} from "./components/AxiosCall";
+import {Axios} from "./components/AxiosCall";
  function App() {
-//   const [colors,setColors]=useState([])
+  // const [colors,setColors]=useState([])
 
-//   useEffect(()=>{
-//     const getColors=()=>{
-//       Axios()
-//       .get("/colors")
-//       .then((res)=>setColors(res.data))
-//       .catch((err)=>console.log(err))
-//     }
-//     getColors();
-//   },[])
+  // useEffect(()=>{
+  //   const getColors=()=>{
+  //     Axios()
+  //     .get("/colors")
+  //     .then((res)=>{console.log(res.data);
+  //       setColors(res.data)})
+  //     .catch((err)=>console.log(err))
+  //   }
+  //   getColors();
+  // },[])
   return (
     <div className="App">
        <span> <h1 className="hch1 bg-primary">Color Choices</h1></span>
@@ -40,7 +41,8 @@ import "./styles.scss";
           Build a PrivateRoute component that will 
           display BubblePage when you're authenticated 
         */}
-<PrivateRoute exact path="/protected" component={BubblePage} />
+<PrivateRoute exact path="/protected" component={BubblePage}/>
+{/* /* render={()=><BubblePage colors={colors} setColors={setColors}/>} */}
 <Route component={Login}/>
 
 
