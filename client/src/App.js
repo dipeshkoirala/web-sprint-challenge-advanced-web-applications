@@ -1,20 +1,55 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route ,Link, Switch} from "react-router-dom";
 
 import Login from "./components/Login";
-import "./styles.scss";
+import PrivateRoute from './components/PrivateRoute'
+import BubblePage from "./components/BubblePage";
 
-function App() {
+import "./styles.scss";
+import {Axios} from "./components/AxiosCall";
+ function App() {
+  // const [colors,setColors]=useState([])
+
+  // useEffect(()=>{
+  //   const getColors=()=>{
+  //     Axios()
+  //     .get("/colors")
+  //     .then((res)=>{console.log(res.data);
+  //       setColors(res.data)})
+  //     .catch((err)=>console.log(err))
+  //   }
+  //   getColors();
+  // },[])
   return (
+    <div className="App">
+       <span> <h1 className="hch1 bg-primary">Color Choices</h1></span>
     <Router>
-      <div className="App">
-        <Route exact path="/" component={Login} />
+        <ul>
+        <li>
+        <Link to="/">Home</Link>
+        </li>
+        <li>
+        <Link to="/protected">Protected</Link>
+        </li></ul>
+<hr/>
+
+      
+        {/* <h1>Renders our Main Page</h1> */}
+        <Switch>
+        <Route  path="/login" component={Login} />
         {/* 
           Build a PrivateRoute component that will 
           display BubblePage when you're authenticated 
         */}
-      </div>
+<PrivateRoute exact path="/protected" component={BubblePage}/>
+{/* /* render={()=><BubblePage colors={colors} setColors={setColors}/>} */}
+<Route component={Login}/>
+
+
+</Switch>
+      
     </Router>
+    </div>
   );
 }
 
